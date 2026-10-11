@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Ca$h Cache{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<p>Welcome! Here's an overview of your finances.</p>
+
+<div class="dashboard">
+    <div class="card">
+        <h2>Monthly Budget</h2>
+        <p>$1,000.00</p>
+    </div>
+
+    <div class="card">
+        <h2>Total Spent</h2>
+        <p>$350.00</p>
+    </div>
+
+    <div class="card">
+        <h2>Money Remaining</h2>
+        <p>$650.00</p>
+    </div>
+</div>
+
+<div class="graph-card">
+    <h2>Spending Over Time</h2>
+    <img src="{{ url_for('static', filename='spending.png') }}" alt="Line graph showing spending over time">
+</div>
+
+<div class="leaderboard-card">
+    <h2>🏆 Leaderboard</h2>
+    <p>See how you rank against other users!</p>
+
+    <div class="leaderboard-row">
+        <span>🥇 1</span>
+        <span>(user)</span>
+        <strong>1,250 pts</strong>
+    </div>
+
+    <div class="leaderboard-row">
+        <span>🥈 2</span>
+        <span>(user)</span>
+        <strong>980 pts</strong>
+    </div>
+
+    <div class="leaderboard-row">
+        <span>🥉 3</span>
+        <span>(user)</span>
+        <strong>875 pts</strong>
+    </div>
+</div>
+{% endblock %}

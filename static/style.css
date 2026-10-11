@@ -1,0 +1,178 @@
+
+body {
+    background-color: #f4f6f9;
+    font-family: Times New Roman, serif;
+    margin: 30px;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+p {
+    color: #555555;
+    font-size: 16px;
+}
+
+.dashboard {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.card h2 {
+    font-size: 18px;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.graph-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.graph-card img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+}
+
+.leaderboard-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+    max-width: 800px;
+}
+
+.leaderboard-card h2 {
+    color: #2c3e50;
+}
+
+.leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.leaderboard-row span:nth-child(2) {
+    flex: 1;
+}
+
+.leaderboard-row strong {
+    color: #287a4b;
+}
+
+.subscription-summary {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.subscription-summary h2 {
+    font-size: 18px;
+}
+
+.subscription-summary p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.subscription-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.subscription-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.subscription-card h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.subscription-card p {
+    margin: 5px 0 0;
+}
+
+.subscription-card strong {
+    color: #287a4b;
+}
+
+.site-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.nav-button {
+    display: inline-block;
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    background-color: #34495e;
+}
+
+.subscription-card > div {
+    flex: 1;
+    min-width: 200px;
+}
+
+.subscription-card > strong {
+    white-space: nowrap;
+}
+
+.netflix-card {
+    background-color: #fce8e8;
+}
+
+.spotify-card {
+    background-color: #e2f5e8;
+}
+
+.icloud-card {
+    background-color: #e8efff;
+}
+
+.gym-card {
+    background-color: #fff0d9;
+}

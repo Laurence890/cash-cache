@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Ca$h Cache{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="{{ url_for('home') }}" class="nav-button">Dashboard</a>
+        <a href="{{ url_for('subscriptions') }}" class="nav-button">Subscriptions</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
