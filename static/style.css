@@ -176,3 +176,95 @@ p {
 .gym-card {
     background-color: #fff0d9;
 }
+
+.budget-summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.budget-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.budget-card h2 {
+    font-size: 18px;
+}
+
+.budget-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.budget-form-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+    max-width: 450px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.budget-form-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.budget-form-card input {
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.budget-button {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.budget-button:hover {
+    background-color: #405a73;
+}
+
+.budget-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.budget-category-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 220px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.budget-category-card h3 {
+    color: #2c3e50;
+}
+
+.budget-progress {
+    height: 12px;
+    background-color: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.budget-progress-fill {
+    height: 100%;
+    background-color: #5b9b76;
+    border-radius: 10px;
+}
