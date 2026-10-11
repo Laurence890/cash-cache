@@ -50,11 +50,19 @@
 
         <div class="budget-progress">
             <div class="budget-progress-fill"
-                 style="width: {{ budget.percentage }}%;">
+                 style='width: {{ budget.percentage }}%;'>
             </div>
         </div>
 
         <p>{{ "%.0f"|format(budget.percentage) }}% used</p>
+
+        <form method="POST"
+              action="{{ url_for('remove_budget', budget_index=loop.index0) }}"
+              onsubmit="return confirm('Are you sure you want to remove this category?');">
+            <button type="submit" class="remove-budget-button">
+                Remove Category
+            </button>
+        </form>
     </div>
     {% else %}
     <p>No budget categories yet. Add one above to get started.</p>

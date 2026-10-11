@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
-import matplotlib
+from flask import Flask, render_template, request, redirect, url_for  # type: ignore[reportMissingImports]
+import matplotlib  # type: ignore[reportMissingModuleSource]
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # type: ignore[reportMissingModuleSource]
 
 app = Flask(__name__)
 
@@ -66,6 +66,13 @@ def budgeting():
         total_spent=total_spent,
         remaining=total_limit - total_spent
     )
+
+@app.route("/budgeting/remove/<int:budget_index>", methods=["POST"])
+def remove_budget(budget_index):
+    if 0 <= budget_index < len(budgets_data):
+        budgets_data.pop(budget_index)
+
+    return redirect(url_for("budgeting"))
 
 if __name__ == "__main__":
     app.run(debug=True)
