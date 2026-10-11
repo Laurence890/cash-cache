@@ -268,3 +268,17 @@ p {
     background-color: #5b9b76;
     border-radius: 10px;
 }
+
+.remove-budget-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.remove-budget-button:hover {
+    background-color: #c0392b;
+}
