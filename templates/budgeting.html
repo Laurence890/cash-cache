@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Budget</h1>
+<p>Plan your spending and keep track of your money.</p>
+
+<div class="budget-summary">
+    <div class="budget-card">
+        <h2>Total Budgeted</h2>
+        <p>${{ "%.2f"|format(total_limit) }}</p>
+    </div>
+
+    <div class="budget-card">
+        <h2>Total Spent</h2>
+        <p>${{ "%.2f"|format(total_spent) }}</p>
+    </div>
+
+    <div class="budget-card">
+        <h2>Remaining</h2>
+        <p>${{ "%.2f"|format(remaining) }}</p>
+    </div>
+</div>
+
+<div class="budget-form-card">
+    <h2>Add a Budget Category</h2>
+
+    <form method="POST" action="{{ url_for('budgeting') }}">
+        <label for="category">Category Name</label>
+        <input type="text" id="category" name="category"
+               placeholder="e.g. Shopping" required>
+
+        <label for="limit">Spending Limit ($)</label>
+        <input type="number" id="limit" name="limit"
+               min="0.01" step="0.01" placeholder="e.g. 100" required>
+
+        <button type="submit" class="budget-button">Add Category</button>
+    </form>
+</div>
+
+<h2>Spending Categories</h2>
+
+<div class="budget-categories">
+    {% for budget in budgets %}
+    <div class="budget-category-card">
+        <h3>{{ budget.category }}</h3>
+
+        <p>Spent: ${{ "%.2f"|format(budget.spent) }}</p>
+        <p>Budget: ${{ "%.2f"|format(budget.limit) }}</p>
+        <p>Remaining: ${{ "%.2f"|format(budget.limit - budget.spent) }}</p>
+
+        <div class="budget-progress">
+            <div class="budget-progress-fill"
+                 style="width: {{ budget.percentage }}%;">
+            </div>
+        </div>
+
+        <p>{{ "%.0f"|format(budget.percentage) }}% used</p>
+    </div>
+    {% else %}
+    <p>No budget categories yet. Add one above to get started.</p>
+    {% endfor %}
+</div>
+{% endblock %}
