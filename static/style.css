@@ -162,19 +162,41 @@ p {
 }
 
 .netflix-card {
-    background-color: #fce8e8;
+    background-color: #9b3134;
 }
 
 .spotify-card {
-    background-color: #e2f5e8;
+    background-color: #229b48;
 }
 
 .icloud-card {
-    background-color: #e8efff;
+    background-color: #335199;
 }
 
 .gym-card {
-    background-color: #fff0d9;
+    background-color: #b98a44;
+}
+
+.netflix-card,
+.spotify-card,
+.icloud-card,
+.gym-card {
+    color: white;
+}
+
+.netflix-card p,
+.spotify-card p,
+.icloud-card p,
+.gym-card p,
+.netflix-card h2,
+.spotify-card h2,
+.icloud-card h2,
+.gym-card h2 {
+    color: white;
+}
+
+.subscription-card strong {
+    color: #ffffff;
 }
 
 .budget-summary {
