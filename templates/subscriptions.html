@@ -8,40 +8,45 @@
 
 <div class="subscription-summary">
     <h2>Monthly Total</h2>
-    <p>$74.96</p>
+    <p>${{ "%.2f"|format(total_cost) }}</p>
 </div>
 
 <div class="subscription-list">
-    <div class="subscription-card netflix-card">
+    {% for subscription in subscriptions %}
+    <div class="subscription-card {{ subscription.color }}">
         <div>
-            <h2>Netflix</h2>
-            <p>Renews October 15</p>
+            <h2>{{ subscription.name }}</h2>
+            <p>{{ subscription.billing_date }}</p>
         </div>
-        <strong>$15.49/month</strong>
-    </div>
+        <strong>${{ "%.2f"|format(subscription.cost) }}/month</strong>
 
-    <div class="subscription-card spotify-card">
-        <div>
-            <h2>Spotify</h2>
-            <p>Renews October 18</p>
-        </div>
-        <strong>$11.99/month</strong>
+        <form method="POST"
+              action="{{ url_for('remove_subscription', subscription_index=loop.index0) }}"
+              onsubmit="return confirm('Are you sure you want to remove this subscription?');">
+            <button type="submit" class="remove-subscription-button">
+                Remove
+            </button>
+        </form>
     </div>
+    {% else %}
+    <p>You have no subscriptions yet.</p>
+    {% endfor %}
+</div>
 
-    <div class="subscription-card icloud-card">
-        <div>
-            <h2>iCloud+</h2>
-            <p>Renews October 20</p>
-        </div>
-        <strong>$2.99/month</strong>
-    </div>
+<div class="add-subscription-card">
+    <h2>Add a Subscription</h2>
 
-    <div class="subscription-card gym-card">
-        <div>
-            <h2>Gym Membership</h2>
-            <p>Renews October 25</p>
-        </div>
-        <strong>$44.49/month</strong>
-    </div>
+    <form method="POST" action="{{ url_for('subscriptions') }}">
+        <label for="name">Subscription Name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Netflix" required>
+
+        <label for="cost">Monthly Cost ($)</label>
+        <input type="number" id="cost" name="cost" min="0.01" step="0.01" placeholder="15.49" required>
+
+        <label for="billing_date">Renewal Date</label>
+        <input type="date" id="billing_date" name="billing_date" required>
+
+        <button type="submit" class="add-subscription-button">Add Subscription</button>
+    </form>
 </div>
 {% endblock %}
