@@ -282,3 +282,58 @@ p {
 .remove-budget-button:hover {
     background-color: #c0392b;
 }
+
+.login-page {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f6f9;
+    font-family: "Times New Roman", serif;
+}
+
+.login-card {
+    background-color: white;
+    width: 320px;
+    max-width: calc(100% - 64px);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #dddddd;
+}
+
+.login-card h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.login-card > p {
+    text-align: center;
+    color: #555555;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-card input {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.login-card button {
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-error {
+    color: #c0392b !important;
+}
