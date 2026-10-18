@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = "temporary-development-secret-change-me"
 
 TEST_EMAIL = "test@cashcache.com"
-TEST_PASSWORD = "CashCache123!"
+TEST_PASSWORD = "cash123"
 
 @app.before_request
 def require_login():
