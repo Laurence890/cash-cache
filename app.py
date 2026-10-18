@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt  # type: ignore[reportMissingModuleSource]
 app = Flask(__name__)
 app.secret_key = "temporary-development-secret-change-me"
 
-TEST_EMAIL = "cash"
+TEST_USERNAME = "cash"
+TEST_EMAIL = "cash@gmail.com"
 TEST_PASSWORD = "cash"
 
 @app.before_request
@@ -23,14 +24,14 @@ def login():
     error = ""
 
     if request.method == "POST":
-        email = request.form.get("email", "").strip()
+        username_or_email = request.form.get("username_or_email", "").strip()
         password = request.form.get("password", "")
 
-        if email == TEST_EMAIL and password == TEST_PASSWORD:
+        if username_or_email in [TEST_USERNAME, TEST_EMAIL] and password == TEST_PASSWORD:
             session["logged_in"] = True
             return redirect(url_for("home"))
 
-        error = "Invalid email or password."
+        error = "Invalid username/email or password."
 
     return render_template("login.html", error=error)
 
