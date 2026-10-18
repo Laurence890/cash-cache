@@ -1,9 +1,39 @@
-from flask import Flask, render_template, request, redirect, url_for  # type: ignore[reportMissingImports]
+from flask import Flask, render_template, request, redirect, url_for, session  # type: ignore[reportMissingImports]
 import matplotlib  # type: ignore[reportMissingModuleSource]
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # type: ignore[reportMissingModuleSource]
 
 app = Flask(__name__)
+app.secret_key = "temporary-development-secret-change-me"
+
+TEST_EMAIL = "test@cashcache.com"
+TEST_PASSWORD = "CashCache123!"
+
+@app.before_request
+def require_login():
+    protected_pages = ["home", "subscriptions", "budgeting"]
+
+    if request.endpoint in protected_pages:
+        if not session.get("logged_in"):
+            return redirect(url_for("login"))
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    error = ""
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+
+        if email == TEST_EMAIL and password == TEST_PASSWORD:
+            session["logged_in"] = True
+            return redirect(url_for("home"))
+
+        error = "Invalid email or password."
+
+    return render_template("login.html", error=error)
+
 
 
 @app.route("/")
@@ -73,6 +103,11 @@ def remove_budget(budget_index):
         budgets_data.pop(budget_index)
 
     return redirect(url_for("budgeting"))
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(debug=True)
