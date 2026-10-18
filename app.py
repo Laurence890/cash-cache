@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt  # type: ignore[reportMissingModuleSource]
 app = Flask(__name__)
 app.secret_key = "temporary-development-secret-change-me"
 
-TEST_EMAIL = "test@cashcache.com"
-TEST_PASSWORD = "cash123"
+TEST_EMAIL = "cash"
+TEST_PASSWORD = "cash"
 
 @app.before_request
 def require_login():
