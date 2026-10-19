@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session  # type: ignore[reportMissingImports]
-import matplotlib  # type: ignore[reportMissingModuleSource]
+from flask import Flask, render_template, request, redirect, url_for, session
+import matplotlib 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # type: ignore[reportMissingModuleSource]
+import matplotlib.pyplot as plt
+import calendar
+from datetime import date
+from flask import request, redirect, url_for, render_template
 
 app = Flask(__name__)
 app.secret_key = "temporary-development-secret-change-me"
@@ -60,7 +63,7 @@ def login():
 
         error = "Invalid username/email or password."
 
-    return render_template("login.html", error=error)
+    return render_template("login.html", error=error)   
 
 
 
