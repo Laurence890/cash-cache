@@ -14,25 +14,25 @@ subscriptions_data = [
     {
         "name": "Netflix",
         "cost": 15.49,
-        "billing_date": "2026-10-15",
+        "billing_date": "Renews October 15",
         "color": "netflix-card"
     },
     {
         "name": "Spotify",
         "cost": 11.99,
-        "billing_date": "2026-10-18",
+        "billing_date": "Renews October 18",
         "color": "spotify-card"
     },
     {
         "name": "iCloud+",
         "cost": 2.99,
-        "billing_date": "2026-10-20",
+        "billing_date": "Renews October 20",
         "color": "icloud-card"
     },
     {
         "name": "Gym Membership",
         "cost": 44.49,
-        "billing_date": "2026-10-25",
+        "billing_date": "Renews October 25",
         "color": "gym-card"
     }
 ]
