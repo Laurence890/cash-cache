@@ -4,7 +4,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import calendar
 from datetime import date
-from flask import request, redirect, url_for, render_template
 
 app = Flask(__name__)
 app.secret_key = "temporary-development-secret-change-me"
@@ -179,6 +178,10 @@ def remove_budget(budget_index):
         budgets_data.pop(budget_index)
 
     return redirect(url_for("budgeting"))
+
+@app.route("/reminders")
+def reminders():
+    return render_template("reminders.html")
 
 @app.route("/logout")
 def logout():
