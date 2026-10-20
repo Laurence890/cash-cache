@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Bills & Reminders | Ca$h Cache{% endblock %}
+
+{% block content %}
+<h1>Bills & Reminders</h1>
+<p>Keep track of your upcoming payments and due dates.</p>
+
+<div class="reminder-summary">
+    <div class="reminder-summary-card">
+        <h2>Upcoming Bills</h2>
+        <p>3</p>
+    </div>
+
+    <div class="reminder-summary-card">
+        <h2>Total Due</h2>
+        <p>$190.00</p>
+    </div>
+
+    <div class="reminder-summary-card">
+        <h2>Overdue Bills</h2>
+        <p>1</p>
+    </div>
+</div>
+
+<div class="reminder-calendar">
+    <div class="reminder-calendar-header">
+        <h2>October 2026</h2>
+        <div>
+            <button type="button" disabled>&lt;</button>
+            <button type="button" disabled>&gt;</button>
+        </div>
+    </div>
+
+    <div class="reminder-calendar-grid">
+        {% for day in ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] %}
+        <div class="reminder-calendar-heading">{{ day }}</div>
+        {% endfor %}
+
+        {% for day in range(1, 36) %}
+            {% if day <= 31 %}
+                {% if day == 1 %}
+                <div class="reminder-calendar-day">
+                    <span>{{ day }}</span>
+                    <div class="reminder-calendar-event paid-event">Rent</div>
+                </div>
+                {% elif day == 15 %}
+                <div class="reminder-calendar-day">
+                    <span>{{ day }}</span>
+                    <div class="reminder-calendar-event overdue-event">Phone</div>
+                </div>
+                {% elif day == 20 %}
+                <div class="reminder-calendar-day">
+                    <span>{{ day }}</span>
+                    <div class="reminder-calendar-event upcoming-event">Electricity</div>
+                </div>
+                {% elif day == 22 %}
+                <div class="reminder-calendar-day">
+                    <span>{{ day }}</span>
+                    <div class="reminder-calendar-event upcoming-event">Internet</div>
+                </div>
+                {% else %}
+                <div class="reminder-calendar-day">
+                    <span>{{ day }}</span>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="reminder-calendar-day empty-calendar-day"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="reminder-calendar-legend">
+        <span><span class="reminder-dot upcoming-dot"></span> Upcoming</span>
+        <span><span class="reminder-dot paid-dot"></span> Paid</span>
+        <span><span class="reminder-dot overdue-dot"></span> Overdue</span>
+    </div>
+</div>
+
+<div class="reminder-bills">
+    <h2>Upcoming Payments</h2>
+    <p class="reminder-section-description">Keep an eye on bills that need your attention.</p>
+
+    <div class="reminder-bill-card">
+        <div class="reminder-bill-icon electricity-icon">$</div>
+        <div class="reminder-bill-info">
+            <h3>Electricity</h3>
+            <p>Due October 20, 2026</p>
+        </div>
+        <div class="reminder-bill-right">
+            <strong>$85.00</strong>
+            <span class="reminder-status upcoming-status">Upcoming</span>
+        </div>
+    </div>
+
+    <div class="reminder-bill-card">
+        <div class="reminder-bill-icon internet-icon">W</div>
+        <div class="reminder-bill-info">
+            <h3>Internet</h3>
+            <p>Due October 22, 2026</p>
+        </div>
+        <div class="reminder-bill-right">
+            <strong>$60.00</strong>
+            <span class="reminder-status upcoming-status">Upcoming</span>
+        </div>
+    </div>
+
+    <div class="reminder-bill-card">
+        <div class="reminder-bill-icon phone-icon">P</div>
+        <div class="reminder-bill-info">
+            <h3>Phone</h3>
+            <p>Due October 15, 2026</p>
+        </div>
+        <div class="reminder-bill-right">
+            <strong>$45.00</strong>
+            <span class="reminder-status overdue-status">Overdue</span>
+        </div>
+    </div>
+
+    <div class="reminder-bill-card">
+        <div class="reminder-bill-icon rent-icon">H</div>
+        <div class="reminder-bill-info">
+            <h3>Rent</h3>
+            <p>Due October 1, 2026</p>
+        </div>
+        <div class="reminder-bill-right">
+            <strong>$900.00</strong>
+            <span class="reminder-status paid-status">Paid</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
