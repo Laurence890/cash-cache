@@ -428,3 +428,281 @@ p {
 .new-subscription-card strong {
     color: white;
 }
+
+.reminder-summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.reminder-summary-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+    flex: 1;
+    min-width: 180px;
+}
+
+.reminder-summary-card h2 {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.reminder-summary-card p {
+    font-size: 26px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0;
+}
+
+.reminder-calendar,
+.reminder-bills {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.reminder-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.reminder-calendar-header h2,
+.reminder-bills > h2 {
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.reminder-calendar-header button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
+.reminder-calendar-header button:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.reminder-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 5px;
+}
+
+.reminder-calendar-heading {
+    text-align: center;
+    padding: 10px 0;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.reminder-calendar-day {
+    min-height: 90px;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid #e1e5eb;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+}
+
+.reminder-calendar-day > span {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.empty-calendar-day {
+    background-color: #f4f6f9;
+}
+
+.reminder-calendar-event {
+    font-size: 12px;
+    padding: 5px 4px;
+    margin-top: 7px;
+    border-radius: 4px;
+}
+
+.upcoming-event {
+    background-color: #fff0c2;
+    color: #805b00;
+}
+
+.paid-event {
+    background-color: #d9f2e3;
+    color: #216e43;
+}
+
+.overdue-event {
+    background-color: #fbe1df;
+    color: #a52a22;
+}
+
+.reminder-calendar-legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.reminder-calendar-legend > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.reminder-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.upcoming-dot {
+    background-color: #e4b32d;
+}
+
+.paid-dot {
+    background-color: #328653;
+}
+
+.overdue-dot {
+    background-color: #c0392b;
+}
+
+.reminder-section-description {
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+
+.reminder-bill-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 0;
+    border-bottom: 1px solid #e1e5eb;
+}
+
+.reminder-bill-card:last-child {
+    border-bottom: none;
+}
+
+.reminder-bill-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.electricity-icon {
+    background-color: #fff0c2;
+    color: #805b00;
+}
+
+.internet-icon {
+    background-color: #dce9ff;
+    color: #335199;
+}
+
+.phone-icon {
+    background-color: #fbe1df;
+    color: #a52a22;
+}
+
+.rent-icon {
+    background-color: #d9f2e3;
+    color: #216e43;
+}
+
+.reminder-bill-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.reminder-bill-info h3 {
+    font-size: 17px;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.reminder-bill-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
+.reminder-bill-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+}
+
+.reminder-bill-right strong {
+    color: #2c3e50;
+    white-space: nowrap;
+}
+
+.reminder-status {
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.upcoming-status {
+    background-color: #fff0c2;
+    color: #805b00;
+}
+
+.paid-status {
+    background-color: #d9f2e3;
+    color: #216e43;
+}
+
+.overdue-status {
+    background-color: #fbe1df;
+    color: #a52a22;
+}
+
+@media (max-width: 600px) {
+    .reminder-summary-card {
+        min-width: 130px;
+    }
+
+    .reminder-calendar {
+        padding: 10px;
+    }
+
+    .reminder-calendar-day {
+        min-height: 65px;
+        padding: 3px;
+    }
+
+    .reminder-calendar-event {
+        font-size: 10px;
+        padding: 3px 2px;
+    }
+
+    .reminder-calendar-heading {
+        font-size: 12px;
+    }
+
+    .reminder-bill-card {
+        gap: 10px;
+    }
+}
