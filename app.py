@@ -1,16 +1,31 @@
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 from dbm import error
 import os
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session  # type: ignore[reportMissingImports]
+import uuid
+
+from flask import Flask, render_template, render_template_string, request, jsonify, redirect, url_for, flash, session  # type: ignore[reportMissingImports]
+from flask_api import FlaskAPI, status
+from flask_api.exceptions import APIException
+
 import matplotlib  # type: ignore[reportMissingModuleSource]
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # type: ignore[reportMissingModuleSource]
 from argon2.exceptions import VerifyMismatchError
+
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 
+import resend
+
+import plaid
+from plaid.model.link_token_create_request import LinkTokenCreateRequest
+from plaid.model.link_token_create_request_user import LinkTokenCreateRequest_User
+from plaid.model.products import Products
+from plaid.model.country_code import CountryCode
+from plaid.model.item_public_token_exchange_request import ItemPublicTokenExchangeRequest
+
 # Import database tools and models from the other files
-from extensions import db, ph
+from extensions import db, ph, plaid_client
 from models import User, UserProfile
 
 
@@ -23,7 +38,44 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_very_secret_and_compl
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
+resend.api_key = os.environ.get("RESEND_API_KEY")
+
 db.init_app(app)
+
+def _create_user(email, password, username, first_name="", last_name=""):
+    user = User(
+        email=email,
+        password_hash=ph.hash(password)
+    )
+    profile = UserProfile(
+        username=username,
+        user=user,
+        first_name=first_name,
+        last_name=last_name
+    )
+
+    db.session.add(user)
+    db.session.add(profile)
+    db.session.commit()
+    return user
+
+def _send_verification_email(user):
+    token = uuid.uuid4().hex
+    user.verification_token = token
+    user.token_expiry = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=24)
+    db.session.commit()
+    verification_url = f"" + f"verify-email?token={user.verification_token}"
+    try:
+        resend.Emails.send({
+            "from": "onboarding@resend.dev", # Or your verified domain
+            "to": user.email,
+            "subject": "Verify your email address",
+            "html": f"<p>Welcome! Please verify your email by clicking <a href='{verification_url}'>here</a>.</p>"
+        })
+    except Exception as e:
+        return jsonify({"error": "Failed to send email"}), 500
+    return jsonify({"message": "User registered. Please check your email to verify."}), 201
+
 
 with app.app_context():
     db.create_all()
@@ -35,23 +87,13 @@ with app.app_context():
     if not seed_check:
         print("🌱 Seeding database with default test user...")
         try:
-            hashed_test_password = ph.hash(TEST_PASSWORD)
-            
-            test_user = User(
+            _create_user(
                 email=TEST_EMAIL,
-                password_hash=hashed_test_password
-            )
-            
-            test_profile = UserProfile(
+                password=TEST_PASSWORD,
                 username=TEST_USERNAME,
-                user=test_user,
                 first_name="Cash",
                 last_name="Cache"
             )
-            
-            db.session.add(test_user)
-            db.session.add(test_profile)
-            db.session.commit()
             print("✅ Default test user created successfully!")
             
         except Exception as e:
@@ -95,18 +137,31 @@ def require_login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    data = request.form
     if request.method == "POST":
-        username = request.form.get('username', '').strip()
-        email = request.form.get('email', '').strip().lower()
-        password = request.form.get('password')
+        username = data.get('username', '').strip()
+        email = data.get('email', '').strip().lower()
+        password = data.get('password')
 
         # Basic input validation
         if not username or not email or not password:
             flash("All fields are required.", "error")
             return render_template('register.html')
         
-        if len(password) < 4:
-            flash("Password must be at least 4 characters long.", "error")
+        if (
+            len(password) < 8
+            or not any(character.islower() for character in password)
+            or not any(character.isupper() for character in password)
+            or not any(
+                not character.isalnum() and not character.isspace()
+                for character in password
+            )
+        ):
+            flash(
+                "Password must be at least 8 characters long and include at least "
+                "one lowercase letter, one uppercase letter, and one special character.",
+                "error"
+            )
             return render_template('register.html')
 
         try:
@@ -120,25 +175,7 @@ def register():
                 flash("That username is already taken.", "error")
                 return render_template('register.html')
 
-            # SECURELY HASH THE PASSWORD: Argon2 automatically handles unique salts
-            hashed_password = ph.hash(password)
-
-            # Create the core authentication record
-            new_user = User(
-                email=email,
-                password_hash=hashed_password
-            )
-
-            # Create the separate profile record and link it via the foreign key relationship
-            new_profile = UserProfile(
-                username=username,
-                user=new_user
-            )
-
-            # Save both records to the database transactionally
-            db.session.add(new_user)
-            db.session.add(new_profile)
-            db.session.commit()
+            _create_user(email=email, password=password, username=username)
 
             flash("Registration successful! Please log in.", "success")
             return redirect(url_for('login'))
@@ -155,6 +192,59 @@ def register():
             return render_template('register.html'), 500
 
     return render_template('register.html')
+
+@app.route('/send-verification', methods=['POST'])
+def send_verification():
+    email = request.form.get('email', '').strip()
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        return jsonify({"message": "If that email exists, a new link has been sent."}), 200
+
+    if user.is_verified:
+        return jsonify({"error": "This account is already verified."}), 400
+
+    user.verification_token = uuid.uuid4().hex
+    db.session.commit()
+
+    try:
+        _send_verification_email(user)
+        return jsonify({"message": "If that email exists, a new link has been sent."}), 200
+    except Exception as e:
+        return jsonify({"error": "Failed to send email"}), 500
+
+@app.route('/verify-email', methods=['GET'])
+def verify_email():
+    token = request.args.get('token')
+
+    if not token:
+        flash("Invalid verification token.", "error")
+        return redirect(url_for('login'))
+
+    user = User.query.filter_by(verification_token=token).first()
+    if not user:
+        flash("Invalid verification token.", "error")
+        return redirect(url_for('login'))
+
+    if user.is_verified:
+        flash("Email is already verified.", "error")
+        #return redirect(f"{FRONTEND_URL}/login?msg=already_verified")
+        return redirect(url_for('login'))
+
+    current_time = datetime.now(timezone.utc).replace(tzinfo=None)
+    if user.token_expiry < current_time:
+        flash("Verification token has expired.", "error")
+        #return redirect(f"{FRONTEND_URL}/verify-expired?email={user.email}")
+        return redirect(url_for('login'))
+
+    user.is_verified = True
+    user.verification_token = None
+    user.token_expiry = None
+    db.session.commit()
+
+    flash("Email verified successfully!", "success")
+    #return redirect(f"{FRONTEND_URL}/verify-success")
+    return redirect(url_for('login'))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -208,7 +298,106 @@ def login():
     # If GET request, display the clean login screen
     return render_template('login.html', error=error)
 
+@app.route("/auth/verify-email-success/<int:user_id>", methods=["GET"])
+def verify_email_and_trigger_plaid(user_id):
 
+    try:
+        # 1. Prepare request details for Plaid
+        plaid_request = LinkTokenCreateRequest(
+            products=[Products('auth'), Products('transactions')],
+            client_name="College Project Web App",
+            country_codes=[CountryCode('US')],
+            language='en',
+            user=LinkTokenCreateRequest_User(
+                client_user_id=str(user_id) # Plaid needs a unique string identifier
+            )
+        )
+        
+        # 2. Generate the short-lived Link Token
+        response = plaid_client.link_token_create(plaid_request)
+        link_token = response['link_token']
+        
+        # 3. Use render_template_string to inject the link token cleanly into our test DOM
+        html_template = """
+        <!DOCTYPE html>
+        <html>
+        <head><title>Plaid Test Interface</title></head>
+        <body style="font-family: Arial, sans-serif; padding: 50px; text-align: center;">
+            <h2>🎉 Email Verified Successfully!</h2>
+            <p>Test your Plaid backend integration before the front-end pages are built.</p>
+            <button id="link-button" style="padding: 12px 24px; font-size: 16px; cursor: pointer; background:#00c08b; color:white; border:none; border-radius:5px;">
+                Link Mock Bank Account
+            </button>
+
+            <script src="https://plaid.com"></script>
+            <script>
+                const handler = Plaid.create({
+                    token: '{{ link_token }}',
+                    onSuccess: (public_token, metadata) => {
+                        // Automatically push the public token back to your Flask backend
+                        fetch('/api/plaid/exchange', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                public_token: public_token,
+                                user_id: {{ user_id }}
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => alert('Success! Plaid Access Token saved to database.'))
+                        .catch(err => alert('Error executing backend token exchange.'));
+                    },
+                    onExit: (err, metadata) => { if (err != null) console.error(err); }
+                });
+
+                document.getElementById('link-button').onclick = () => handler.open();
+            </script>
+        </body>
+        </html>
+        """
+        return render_template_string(html_template, link_token=link_token, user_id=user_id)
+
+    except plaid.ApiException as e:
+        return jsonify({"error": f"Plaid Link Generation Failed: {e.body}"}), 400
+
+@app.route("/api/plaid/exchange", methods=["POST"])
+def exchange_public_token():
+    """
+    Receives public_token from client, requests permanent access_token 
+    from Plaid, and commits it into the database via Flask-SQLAlchemy.
+    """
+    data = request.get_json()
+    public_token = data.get("public_token")
+    user_id = data.get("user_id")
+
+    if not public_token or not user_id:
+        return jsonify({"error": "Missing payload fields"}), 400
+
+    try:
+        # 1. Trade the public token for the permanent access token
+        exchange_request = ItemPublicTokenExchangeRequest(public_token=public_token)
+        exchange_response = plaid_client.item_public_token_exchange(exchange_request)
+        
+        access_token = exchange_response['access_token']
+        item_id = exchange_response['item_id']
+        
+        # 2. Update your database using standard Flask-SQLAlchemy syntax
+        profile = UserProfile.query.filter_by(user_id=user_id).first()
+        
+        if profile:
+            profile.plaid_access_token = access_token
+            profile.plaid_item_id = item_id
+            db.session.commit()
+            
+            print(f"--- SUCCESS: DB Entry Updated for User {user_id} ---")
+            print(f"Access Token Saved: {access_token}")
+            
+            return jsonify({"status": "success", "message": "Tokens saved successfully."})
+        else:
+            return jsonify({"error": "UserProfile matching user_id not found"}), 404
+
+    except plaid.ApiException as e:
+        return jsonify({"error": f"Plaid Exchange Failed: {e.body}"}), 400
 
 @app.route("/")
 def home():
