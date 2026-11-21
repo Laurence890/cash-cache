@@ -324,7 +324,7 @@ def verify_email_and_trigger_plaid(user_id):
         <head><title>Plaid Test Interface</title></head>
         <body style="font-family: Arial, sans-serif; padding: 50px; text-align: center;">
             <h2>🎉 Email Verified Successfully!</h2>
-            <p>Test your Plaid backend integration before the front-end pages are built.</p>
+            <p>Test Plaid backend integration before the front-end pages are built.</p>
             <button id="link-button" style="padding: 12px 24px; font-size: 16px; cursor: pointer; background:#00c08b; color:white; border:none; border-radius:5px;">
                 Link Mock Bank Account
             </button>
