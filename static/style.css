@@ -21,20 +21,28 @@
     }
 
     .card {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        width: 200px;
-        box-shadow: 0 2px 5px #E6DDF0;
+    background-color: #FFFFFF;
+    padding: 24px;
+    border-radius: 14px;
+    width: 220px;
+    border: 1px solid #E8DFEF;
+    box-shadow: 0 3px 10px rgba(69, 33, 122, 0.06);
     }
 
     .card h2 {
-        font-size: 18px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #756A80;
+    margin-top: 16px;
+    margin-bottom: 8px;
     }
 
     .card p {
-        font-size: 24px;
-        font-weight: bold;
+    font-size: 30px;
+    font-weight: bold;
+    color: #30213F;
+    margin-top: 0;
+    margin-bottom: 0;
     }
 
     .graph-card {
@@ -43,6 +51,35 @@
         margin-top: 25px;
         border-radius: 10px;
         box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .card-icon svg {
+    width: 22px;
+    height: 22px;
+    }
+
+    .budget-icon {
+    background-color: #EEE7F7;
+    color: #45217A;
+    }
+
+    .spent-icon {
+    background-color: #FBF0D8;
+    color: #8A641F;
+    }
+
+    .remaining-icon {
+    background-color: #E5F3E9;
+    color: #287A4B;
     }
 
     .graph-card img {
