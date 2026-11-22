@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session  # type: ignore
+from flask import Flask, render_template, request, redirect, url_for, session
 import matplotlib 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -41,7 +41,7 @@ subscriptions_data = [
 
 @app.before_request
 def require_login():
-    protected_pages = ["home", "subscriptions", "budgeting"]
+    protected_pages = ["home", "subscriptions", "budgeting", "reminders", "social"]
 
     if request.endpoint in protected_pages:
         if not session.get("logged_in"):
@@ -182,6 +182,31 @@ def remove_budget(budget_index):
 @app.route("/reminders")
 def reminders():
     return render_template("reminders.html")
+
+
+@app.route("/social")
+def social():
+    friends = [
+        {"username": "Laurence", "points": 1250, "level": 6},
+        {"username": "Adam", "points": 980, "level": 5},
+        {"username": "Michael", "points": 875, "level": 3}
+    ]
+
+    current_user = {
+        "username": "cash",
+        "points": 1250,
+        "level": 4
+    }
+
+    leaderboard = friends + [current_user]
+    leaderboard.sort(key=lambda user: user["points"], reverse=True)
+
+    return render_template(
+        "social.html",
+        friends=friends,
+        current_user=current_user,
+        leaderboard=leaderboard
+    )
 
 @app.route("/logout")
 def logout():

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Social - Ca$h Cache{% endblock %}
+
+{% block content %}
+
+<h1>Social</h1>
+<p>Connect with friends and earn points through healthy financial habits.</p>
+
+<div class="social-summary">
+    <div class="social-card">
+        <h2>Your Profile</h2>
+        <h3>{{ current_user.username }}</h3>
+        <p>{{ current_user.points }} Points</p>
+        <strong>Level {{ current_user.level }}</strong>
+    </div>
+
+    <div class="social-card">
+        <h2>Your Friends</h2>
+        <p>{{ friends|length }}</p>
+        <strong>Friends Added</strong>
+    </div>
+
+    <div class="social-card">
+        <h2>Your Ranking</h2>
+        {% for user in leaderboard %}
+            {% if user.username == current_user.username %}
+                <p>#{{ loop.index }}</p>
+            {% endif %}
+        {% endfor %}
+        <strong>Leaderboard Position</strong>
+    </div>
+</div>
+
+<div class="leaderboard-card">
+    <h2>Friends Leaderboard</h2>
+    <p>See how you compare with your friends.</p>
+
+    {% for user in leaderboard %}
+    <div class="leaderboard-row">
+        <span>#{{ loop.index }}</span>
+        <span>
+            {{ user.username }}
+            {% if user.username == current_user.username %}
+                (You)
+            {% endif %}
+        </span>
+        <strong>{{ user.points }} Points</strong>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="social-friends-card">
+    <h2>Your Friends</h2>
+    <p>View the friends connected to your account.</p>
+
+    {% for friend in friends %}
+    <div class="social-friend-row">
+        <div>
+            <h3>{{ friend.username }}</h3>
+            <p>Level {{ friend.level }}</p>
+        </div>
+        <strong>{{ friend.points }} Points</strong>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="social-points-card">
+    <h2>How to Earn Points</h2>
+    <p>Complete financial goals to increase your leaderboard ranking.</p>
+
+    <div class="social-points-row">
+        <span>Complete a Savings Goal</span>
+        <strong>+200 Points</strong>
+    </div>
+
+    <div class="social-points-row">
+        <span>Stay Within Your Monthly Budget</span>
+        <strong>+150 Points</strong>
+    </div>
+
+    <div class="social-points-row">
+        <span>Track Expenses for 7 Days</span>
+        <strong>+100 Points</strong>
+    </div>
+
+    <div class="social-points-row">
+        <span>Pay a Bill on Time</span>
+        <strong>+50 Points</strong>
+    </div>
+</div>
+
+{% endblock %}

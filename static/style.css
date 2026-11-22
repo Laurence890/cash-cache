@@ -706,3 +706,108 @@ p {
         gap: 10px;
     }
 }
+
+.social-summary {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 2px 5px #dddddd;
+}
+
+.social-card h2 {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.social-card h3 {
+    color: #2c3e50;
+}
+
+.social-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #287a4b;
+}
+
+.social-card strong {
+    color: #555555;
+}
+
+.social-friends-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+    max-width: 800px;
+}
+
+.social-friends-card h2 {
+    color: #2c3e50;
+}
+
+.social-friend-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.social-friend-row h3 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.social-friend-row p {
+    margin: 5px 0 0;
+}
+
+.social-friend-row strong {
+    color: #287a4b;
+}
+
+.social-points-card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #dddddd;
+    max-width: 800px;
+}
+
+.social-points-card h2 {
+    color: #2c3e50;
+}
+
+.social-points-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.social-points-row strong {
+    color: #287a4b;
+}
+
+@media (max-width: 600px) {
+    .social-card {
+        width: 100%;
+    }
+
+    .social-friend-row,
+    .social-points-row {
+        flex-wrap: wrap;
+    }
+}
