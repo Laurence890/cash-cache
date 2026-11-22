@@ -6,12 +6,16 @@
 </head>
 <body>
     <nav class="site-nav">
-        <a href="{{ url_for('home') }}" class="nav-button">Dashboard</a>
-        <a href="{{ url_for('subscriptions') }}" class="nav-button">Subscriptions</a>
-        <a href="{{ url_for('budgeting') }}" class="nav-button">Budgeting</a>
-        <a href="{{ url_for('reminders') }}" class="nav-button">Calendar</a>
-        <a href="{{ url_for('social') }}" class="nav-button">Social</a>
-        <a href="{{ url_for('logout') }}" class="nav-button">Log Out</a>
+        <div class="nav-brand">🐷 Ca$h Cache</div>
+
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}" class="nav-button {% if request.endpoint == 'home' %}active{% endif %}">Dashboard</a>
+            <a href="{{ url_for('subscriptions') }}" class="nav-button {% if request.endpoint == 'subscriptions' %}active{% endif %}">Subscriptions</a>
+            <a href="{{ url_for('budgeting') }}" class="nav-button {% if request.endpoint == 'budgeting' %}active{% endif %}">Budgeting</a>
+            <a href="{{ url_for('reminders') }}" class="nav-button {% if request.endpoint == 'reminders' %}active{% endif %}">Calendar</a>
+            <a href="{{ url_for('social') }}" class="nav-button {% if request.endpoint == 'social' %}active{% endif %}">Social</a>
+            <a href="{{ url_for('logout') }}" class="nav-button">Log Out</a>
+        </div>
     </nav>
 
     <main>

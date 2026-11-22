@@ -1,813 +1,840 @@
 
-body {
-    background-color: #f4f6f9;
-    font-family: Times New Roman, serif;
-    margin: 30px;
-}
-
-h1 {
-    color: #2c3e50;
-}
-
-p {
-    color: #555555;
-    font-size: 16px;
-}
-
-.dashboard {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.card h2 {
-    font-size: 18px;
-}
-
-.card p {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.graph-card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.graph-card img {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-}
-
-.leaderboard-card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    max-width: 800px;
-}
-
-.leaderboard-card h2 {
-    color: #2c3e50;
-}
-
-.leaderboard-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 10px;
-    border-bottom: 1px solid #eeeeee;
-}
-
-.leaderboard-row span:nth-child(2) {
-    flex: 1;
-}
-
-.leaderboard-row strong {
-    color: #287a4b;
-}
-
-.subscription-summary {
-    background-color: white;
-    padding: 20px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.subscription-summary h2 {
-    font-size: 18px;
-}
-
-.subscription-summary p {
-    font-size: 28px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-.subscription-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.subscription-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.subscription-card h2 {
-    font-size: 18px;
-    margin: 0;
-}
-
-.subscription-card p {
-    margin: 5px 0 0;
-}
-
-.subscription-card strong {
-    color: #287a4b;
-}
-
-.site-nav {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-}
-
-.nav-button {
-    display: inline-block;
-    background-color: #2c3e50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.nav-button:hover {
-    background-color: #34495e;
-}
-
-.subscription-card > div {
-    flex: 1;
-    min-width: 200px;
-}
-
-.subscription-card > strong {
-    white-space: nowrap;
-}
-
-.netflix-card {
-    background-color: #9b3134;
-}
-
-.spotify-card {
-    background-color: #229b48;
-}
-
-.icloud-card {
-    background-color: #335199;
-}
-
-.gym-card {
-    background-color: #b98a44;
-}
-
-.netflix-card,
-.spotify-card,
-.icloud-card,
-.gym-card {
-    color: white;
-}
-
-.netflix-card p,
-.spotify-card p,
-.icloud-card p,
-.gym-card p,
-.netflix-card h2,
-.spotify-card h2,
-.icloud-card h2,
-.gym-card h2 {
-    color: white;
-}
-
-.subscription-card strong {
-    color: #ffffff;
-}
-
-.budget-summary {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.budget-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.budget-card h2 {
-    font-size: 18px;
-}
-
-.budget-card p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-.budget-form-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    max-width: 450px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
-.budget-form-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.budget-form-card input {
-    padding: 10px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.budget-button {
-    background-color: #2c3e50;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.budget-button:hover {
-    background-color: #405a73;
-}
-
-.budget-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.budget-category-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 220px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.budget-category-card h3 {
-    color: #2c3e50;
-}
-
-.budget-progress {
-    height: 12px;
-    background-color: #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.budget-progress-fill {
-    height: 100%;
-    background-color: #5b9b76;
-    border-radius: 10px;
-}
-
-.remove-budget-button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.remove-budget-button:hover {
-    background-color: #c0392b;
-}
-
-.login-page {
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f6f9;
-    font-family: "Times New Roman", serif;
-}
-
-.login-card {
-    background-color: white;
-    width: 320px;
-    max-width: calc(100% - 64px);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px #dddddd;
-}
-
-.login-card h1 {
-    text-align: center;
-    color: #2c3e50;
-}
-
-.login-card > p {
-    text-align: center;
-    color: #555555;
-}
-
-.login-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.login-card input {
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-}
-
-.login-card button {
-    padding: 12px;
-    margin-top: 10px;
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.login-error {
-    color: #c0392b !important;
-}
-
-.add-subscription-card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    max-width: 450px;
-}
-
-.add-subscription-card h2 {
-    color: #2c3e50;
-    font-size: 18px;
-}
-
-.add-subscription-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.add-subscription-card input {
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    font-family: "Times New Roman", serif;
-    font-size: 16px;
-}
-
-.add-subscription-button {
-    background-color: #2c3e50;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: "Times New Roman", serif;
-    font-size: 16px;
-}
-
-.add-subscription-button:hover {
-    background-color: #405a73;
-}
-
-.remove-subscription-button {
-    background-color: #c0392b;
-    color: white;
-    padding: 10px 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: "Times New Roman", serif;
-    font-size: 16px;
-}
-
-.remove-subscription-button:hover {
-    background-color: #922b21;
-}
-
-.new-subscription-card {
-    background-color: #465363;
-    color: white;
-}
-
-.new-subscription-card h2,
-.new-subscription-card p,
-.new-subscription-card strong {
-    color: white;
-}
-
-.reminder-summary {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-}
-
-.reminder-summary-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    flex: 1;
-    min-width: 180px;
-}
-
-.reminder-summary-card h2 {
-    font-size: 18px;
-    color: #2c3e50;
-}
-
-.reminder-summary-card p {
-    font-size: 26px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 0;
-}
-
-.reminder-calendar,
-.reminder-bills {
-    background-color: white;
-    padding: 20px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.reminder-calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.reminder-calendar-header h2,
-.reminder-bills > h2 {
-    font-size: 20px;
-    color: #2c3e50;
-}
-
-.reminder-calendar-header button {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    font-size: 16px;
-}
-
-.reminder-calendar-header button:disabled {
-    opacity: 0.7;
-    cursor: default;
-}
-
-.reminder-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 5px;
-}
-
-.reminder-calendar-heading {
-    text-align: center;
-    padding: 10px 0;
-    color: #2c3e50;
-    font-weight: bold;
-}
-
-.reminder-calendar-day {
-    min-height: 90px;
-    min-width: 0;
-    padding: 8px;
-    border: 1px solid #e1e5eb;
-    border-radius: 5px;
-    overflow-wrap: anywhere;
-}
-
-.reminder-calendar-day > span {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-.empty-calendar-day {
-    background-color: #f4f6f9;
-}
-
-.reminder-calendar-event {
-    font-size: 12px;
-    padding: 5px 4px;
-    margin-top: 7px;
-    border-radius: 4px;
-}
-
-.upcoming-event {
-    background-color: #fff0c2;
-    color: #805b00;
-}
-
-.paid-event {
-    background-color: #d9f2e3;
-    color: #216e43;
-}
-
-.overdue-event {
-    background-color: #fbe1df;
-    color: #a52a22;
-}
-
-.reminder-calendar-legend {
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-.reminder-calendar-legend > span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.reminder-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.upcoming-dot {
-    background-color: #e4b32d;
-}
-
-.paid-dot {
-    background-color: #328653;
-}
-
-.overdue-dot {
-    background-color: #c0392b;
-}
-
-.reminder-section-description {
-    margin-top: -5px;
-    margin-bottom: 20px;
-}
-
-.reminder-bill-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px 0;
-    border-bottom: 1px solid #e1e5eb;
-}
-
-.reminder-bill-card:last-child {
-    border-bottom: none;
-}
-
-.reminder-bill-icon {
-    width: 45px;
-    height: 45px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.electricity-icon {
-    background-color: #fff0c2;
-    color: #805b00;
-}
-
-.internet-icon {
-    background-color: #dce9ff;
-    color: #335199;
-}
-
-.phone-icon {
-    background-color: #fbe1df;
-    color: #a52a22;
-}
-
-.rent-icon {
-    background-color: #d9f2e3;
-    color: #216e43;
-}
-
-.reminder-bill-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.reminder-bill-info h3 {
-    font-size: 17px;
-    color: #2c3e50;
-    margin: 0;
-}
-
-.reminder-bill-info p {
-    margin: 5px 0 0;
-    font-size: 14px;
-}
-
-.reminder-bill-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 7px;
-}
-
-.reminder-bill-right strong {
-    color: #2c3e50;
-    white-space: nowrap;
-}
-
-.reminder-status {
-    font-size: 12px;
-    padding: 5px 8px;
-    border-radius: 5px;
-    white-space: nowrap;
-}
-
-.upcoming-status {
-    background-color: #fff0c2;
-    color: #805b00;
-}
-
-.paid-status {
-    background-color: #d9f2e3;
-    color: #216e43;
-}
-
-.overdue-status {
-    background-color: #fbe1df;
-    color: #a52a22;
-}
-
-@media (max-width: 600px) {
-    .reminder-summary-card {
-        min-width: 130px;
+    body {
+        background-color: #FAF8F3;
+        font-family: Times New Roman, serif;
+        margin: 30px;
     }
 
-    .reminder-calendar {
+    h1 {
+        color: #30213F;
+    }
+
+    p {
+        color: #594C66;
+        font-size: 16px;
+    }
+
+    .dashboard {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .card h2 {
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .graph-card {
+        background-color: white;
+        padding: 20px;
+        margin-top: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .graph-card img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+    }
+
+    .leaderboard-card {
+        background-color: white;
+        padding: 20px;
+        margin-top: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        max-width: 800px;
+    }
+
+    .leaderboard-card h2 {
+        color: #30213F;
+    }
+
+    .leaderboard-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 10px;
+        border-bottom: 1px solid #EEE7F7;
+    }
+
+    .leaderboard-row span:nth-child(2) {
+        flex: 1;
+    }
+
+    .leaderboard-row strong {
+        color: #8A641F;
+    }
+
+    .subscription-summary {
+        background-color: white;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .subscription-summary h2 {
+        font-size: 18px;
+    }
+
+    .subscription-summary p {
+        font-size: 28px;
+        font-weight: bold;
+        color: #30213F;
+    }
+
+    .subscription-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .subscription-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .subscription-card h2 {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .subscription-card p {
+        margin: 5px 0 0;
+    }
+
+    .subscription-card strong {
+        color: #287a4b;
+    }
+
+    .site-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #45217A;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+    .nav-brand {
+        color: #D4AF67;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .nav-button {
+        display: inline-block;
+        background-color: #6D46A5;
+        color: white;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .nav-button:hover {
+        background-color: #825DB8;
+    }
+
+    .nav-button.active {
+        background-color: #D4AF67;
+        color: #30213F;
+        font-weight: bold;
+    }
+
+    .nav-button.active:hover {
+        background-color: #D4AF67;
+    }
+
+    .subscription-card > div {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .subscription-card > strong {
+        white-space: nowrap;
+    }
+
+    .netflix-card {
+        background-color: #45217A;
+    }
+
+    .spotify-card {
+        background-color: #45217A;
+    }
+
+    .icloud-card {
+        background-color: #45217A;
+    }
+
+    .gym-card {
+        background-color: #45217A;
+    }
+
+    .netflix-card,
+    .spotify-card,
+    .icloud-card,
+    .gym-card {
+        color: white;
+    }
+
+    .netflix-card p,
+    .spotify-card p,
+    .icloud-card p,
+    .gym-card p,
+    .netflix-card h2,
+    .spotify-card h2,
+    .icloud-card h2,
+    .gym-card h2 {
+        color: white;
+    }
+
+    .subscription-card strong {
+        color: #ffffff;
+    }
+
+    .budget-summary {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .budget-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .budget-card h2 {
+        font-size: 18px;
+    }
+
+    .budget-card p {
+        font-size: 24px;
+        font-weight: bold;
+        color: #30213F;
+    }
+
+    .budget-form-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        max-width: 450px;
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+    .budget-form-card form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .budget-form-card input {
         padding: 10px;
+        border: 1px solid #E6DDF0;
+        border-radius: 5px;
+        font-size: 16px;
     }
 
-    .reminder-calendar-day {
-        min-height: 65px;
-        padding: 3px;
+    .budget-button {
+        background-color: #45217A;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
     }
 
-    .reminder-calendar-event {
-        font-size: 10px;
-        padding: 3px 2px;
+    .budget-button:hover {
+        background-color: #6D46A5;
+    }
+
+    .budget-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .budget-category-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 220px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .budget-category-card h3 {
+        color: #30213F;
+    }
+
+    .budget-progress {
+        height: 12px;
+        background-color: #EEE7F7;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .budget-progress-fill {
+        height: 100%;
+        background-color: #6D46A5;
+        border-radius: 10px;
+    }
+
+    .remove-budget-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .remove-budget-button:hover {
+        background-color: #c0392b;
+    }
+
+    .login-page {
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #FAF8F3;
+        font-family: "Times New Roman", serif;
+    }
+
+    .login-card {
+        background-color: white;
+        width: 320px;
+        max-width: calc(100% - 64px);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px #E6DDF0;
+    }
+
+    .login-card h1 {
+        text-align: center;
+        color: #30213F;
+    }
+
+    .login-card > p {
+        text-align: center;
+        color: #594C66;
+    }
+
+    .login-card form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .login-card input {
+        padding: 10px;
+        border: 1px solid #D6C7E8;
+        border-radius: 5px;
+    }
+
+    .login-card button {
+        padding: 12px;
+        margin-top: 10px;
+        background-color: #45217A;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .login-error {
+        color: #c0392b !important;
+    }
+
+    .add-subscription-card {
+        background-color: white;
+        padding: 20px;
+        margin-top: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        max-width: 450px;
+    }
+
+    .add-subscription-card h2 {
+        color: #30213F;
+        font-size: 18px;
+    }
+
+    .add-subscription-card form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-subscription-card input {
+        padding: 10px;
+        border: 1px solid #D6C7E8;
+        border-radius: 5px;
+        font-family: "Times New Roman", serif;
+        font-size: 16px;
+    }
+
+    .add-subscription-button {
+        background-color: #45217A;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Times New Roman", serif;
+        font-size: 16px;
+    }
+
+    .add-subscription-button:hover {
+        background-color: #6D46A5;
+    }
+
+    .remove-subscription-button {
+        background-color: #c0392b;
+        color: white;
+        padding: 10px 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Times New Roman", serif;
+        font-size: 16px;
+    }
+
+    .remove-subscription-button:hover {
+        background-color: #922b21;
+    }
+
+    .new-subscription-card {
+        background-color: #45217A;
+        color: white;
+    }
+
+    .new-subscription-card h2,
+    .new-subscription-card p,
+    .new-subscription-card strong {
+        color: white;
+    }
+
+    .reminder-summary {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
+    .reminder-summary-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        flex: 1;
+        min-width: 180px;
+    }
+
+    .reminder-summary-card h2 {
+        font-size: 18px;
+        color: #30213F;
+    }
+
+    .reminder-summary-card p {
+        font-size: 26px;
+        font-weight: bold;
+        color: #30213F;
+        margin-bottom: 0;
+    }
+
+    .reminder-calendar,
+    .reminder-bills {
+        background-color: white;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .reminder-calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .reminder-calendar-header h2,
+    .reminder-bills > h2 {
+        font-size: 20px;
+        color: #30213F;
+    }
+
+    .reminder-calendar-header button {
+        background-color: #45217A;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+
+    .reminder-calendar-header button:disabled {
+        opacity: 0.7;
+        cursor: default;
+    }
+
+    .reminder-calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 5px;
     }
 
     .reminder-calendar-heading {
+        text-align: center;
+        padding: 10px 0;
+        color: #30213F;
+        font-weight: bold;
+    }
+
+    .reminder-calendar-day {
+        min-height: 90px;
+        min-width: 0;
+        padding: 8px;
+        border: 1px solid #E6DDF0;
+        border-radius: 5px;
+        overflow-wrap: anywhere;
+    }
+
+    .reminder-calendar-day > span {
+        font-weight: bold;
+        color: #30213F;
+    }
+
+    .empty-calendar-day {
+        background-color: #FAF8F3;
+    }
+
+    .reminder-calendar-event {
         font-size: 12px;
+        padding: 5px 4px;
+        margin-top: 7px;
+        border-radius: 4px;
+    }
+
+    .upcoming-event {
+        background-color: #fff0c2;
+        color: #805b00;
+    }
+
+    .paid-event {
+        background-color: #d9f2e3;
+        color: #216e43;
+    }
+
+    .overdue-event {
+        background-color: #fbe1df;
+        color: #a52a22;
+    }
+
+    .reminder-calendar-legend {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .reminder-calendar-legend > span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .reminder-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .upcoming-dot {
+        background-color: #e4b32d;
+    }
+
+    .paid-dot {
+        background-color: #328653;
+    }
+
+    .overdue-dot {
+        background-color: #c0392b;
+    }
+
+    .reminder-section-description {
+        margin-top: -5px;
+        margin-bottom: 20px;
     }
 
     .reminder-bill-card {
-        gap: 10px;
-    }
-}
-
-.social-summary {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.social-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 2px 5px #dddddd;
-}
-
-.social-card h2 {
-    font-size: 18px;
-    color: #2c3e50;
-}
-
-.social-card h3 {
-    color: #2c3e50;
-}
-
-.social-card p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #287a4b;
-}
-
-.social-card strong {
-    color: #555555;
-}
-
-.social-friends-card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    max-width: 800px;
-}
-
-.social-friends-card h2 {
-    color: #2c3e50;
-}
-
-.social-friend-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 15px 10px;
-    border-bottom: 1px solid #eeeeee;
-}
-
-.social-friend-row h3 {
-    color: #2c3e50;
-    margin: 0;
-}
-
-.social-friend-row p {
-    margin: 5px 0 0;
-}
-
-.social-friend-row strong {
-    color: #287a4b;
-}
-
-.social-points-card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #dddddd;
-    max-width: 800px;
-}
-
-.social-points-card h2 {
-    color: #2c3e50;
-}
-
-.social-points-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 15px 10px;
-    border-bottom: 1px solid #eeeeee;
-}
-
-.social-points-row strong {
-    color: #287a4b;
-}
-
-@media (max-width: 600px) {
-    .social-card {
-        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 18px 0;
+        border-bottom: 1px solid #E6DDF0;
     }
 
-    .social-friend-row,
-    .social-points-row {
+    .reminder-bill-card:last-child {
+        border-bottom: none;
+    }
+
+    .reminder-bill-icon {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .electricity-icon {
+        background-color: #fff0c2;
+        color: #805b00;
+    }
+
+    .internet-icon {
+        background-color: #dce9ff;
+        color: #45217A;
+    }
+
+    .phone-icon {
+        background-color: #fbe1df;
+        color: #a52a22;
+    }
+
+    .rent-icon {
+        background-color: #d9f2e3;
+        color: #216e43;
+    }
+
+    .reminder-bill-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .reminder-bill-info h3 {
+        font-size: 17px;
+        color: #30213F;
+        margin: 0;
+    }
+
+    .reminder-bill-info p {
+        margin: 5px 0 0;
+        font-size: 14px;
+    }
+
+    .reminder-bill-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 7px;
+    }
+
+    .reminder-bill-right strong {
+        color: #30213F;
+        white-space: nowrap;
+    }
+
+    .reminder-status {
+        font-size: 12px;
+        padding: 5px 8px;
+        border-radius: 5px;
+        white-space: nowrap;
+    }
+
+    .upcoming-status {
+        background-color: #fff0c2;
+        color: #805b00;
+    }
+
+    .paid-status {
+        background-color: #d9f2e3;
+        color: #216e43;
+    }
+
+    .overdue-status {
+        background-color: #fbe1df;
+        color: #a52a22;
+    }
+
+    @media (max-width: 600px) {
+        .reminder-summary-card {
+            min-width: 130px;
+        }
+
+        .reminder-calendar {
+            padding: 10px;
+        }
+
+        .reminder-calendar-day {
+            min-height: 65px;
+            padding: 3px;
+        }
+
+        .reminder-calendar-event {
+            font-size: 10px;
+            padding: 3px 2px;
+        }
+
+        .reminder-calendar-heading {
+            font-size: 12px;
+        }
+
+        .reminder-bill-card {
+            gap: 10px;
+        }
+    }
+
+    .social-summary {
+        display: flex;
+        gap: 20px;
         flex-wrap: wrap;
     }
-}
+
+    .social-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+        box-shadow: 0 2px 5px #E6DDF0;
+    }
+
+    .social-card h2 {
+        font-size: 18px;
+        color: #30213F;
+    }
+
+    .social-card h3 {
+        color: #30213F;
+    }
+
+    .social-card p {
+        font-size: 24px;
+        font-weight: bold;
+        color: #6D46A5;
+    }
+
+    .social-card strong {
+        color: #594C66;
+    }
+
+    .social-friends-card {
+        background-color: white;
+        padding: 20px;
+        margin-top: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        max-width: 800px;
+    }
+
+    .social-friends-card h2 {
+        color: #30213F;
+    }
+
+    .social-friend-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 15px 10px;
+        border-bottom: 1px solid #EEE7F7;
+    }
+
+    .social-friend-row h3 {
+        color: #30213F;
+        margin: 0;
+    }
+
+    .social-friend-row p {
+        margin: 5px 0 0;
+    }
+
+    .social-friend-row strong {
+        color: #6D46A5;
+    }
+
+    .social-points-card {
+        background-color: white;
+        padding: 20px;
+        margin-top: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px #E6DDF0;
+        max-width: 800px;
+    }
+
+    .social-points-card h2 {
+        color: #30213F;
+    }
+
+    .social-points-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 15px 10px;
+        border-bottom: 1px solid #EEE7F7;
+    }
+
+    .social-points-row strong {
+        color: #8A641F;
+    }
+
+    @media (max-width: 600px) {
+        .social-card {
+            width: 100%;
+        }
+
+        .social-friend-row,
+        .social-points-row {
+            flex-wrap: wrap;
+        }
+    }
