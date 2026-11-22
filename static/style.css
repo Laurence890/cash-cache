@@ -927,3 +927,15 @@
 .register-footer a:hover {
     text-decoration: underline;
 }
+
+.error-message {
+    color: #dc3545;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.success-message {
+    color: #198754;
+    text-align: center;
+    margin-bottom: 15px;
+}

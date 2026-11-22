@@ -2,3 +2,4 @@ Flask
 matplotlib
 gunicorn
 supabase
+python-dotenv

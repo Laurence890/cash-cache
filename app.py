@@ -4,6 +4,16 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import calendar
 from datetime import date
+import os
+from dotenv import load_dotenv
+from supabase import create_client
+
+load_dotenv()
+
+supabase_url = os.environ["SUPABASE_URL"]
+supabase_key = os.environ["SUPABASE_KEY"]
+
+supabase = create_client(supabase_url, supabase_key)
 
 app = Flask(__name__)
 app.secret_key = "temporary-development-secret-change-me"
@@ -210,10 +220,42 @@ def social():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        return render_template("register.html", error="Registration is not available yet.")
+    error = ""
+    success = ""
 
-    return render_template("register.html")
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+        confirm_password = request.form.get("confirm_password", "")
+
+        if not username or not email or not password or not confirm_password:
+            error = "Please fill out all fields."
+
+        elif password != confirm_password:
+            error = "Passwords do not match."
+
+        elif len(password) < 6:
+            error = "Password must contain at least 6 characters."
+
+        else:
+            try:
+                response = supabase.auth.sign_up({
+                    "email": email,
+                    "password": password,
+                    "options": {
+                        "data": {
+                            "username": username
+                        }
+                    }
+                })
+
+                success = "Registration submitted! Please check your email for a confirmation link."
+
+            except Exception as e:
+                error = f"Registration failed: {str(e)}"
+
+    return render_template("register.html", error=error, success=success)
 
 @app.route("/logout")
 def logout():
