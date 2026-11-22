@@ -138,12 +138,22 @@
     border-radius: 10px;
     margin-bottom: 25px;
     gap: 15px;
-}
+    }
 
     .nav-brand {
-        color: #D4AF67;
-        font-size: 26px;
-        font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #D4AF67;
+    font-size: 26px;
+    font-weight: bold;
+    }
+
+    .nav-brand svg {
+    width: 32px;
+    height: 32px;
+    color: #D4AF67;
+    stroke-width: 2.5;
     }
 
     .nav-links {
