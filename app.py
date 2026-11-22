@@ -208,6 +208,13 @@ def social():
         leaderboard=leaderboard
     )
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        return render_template("register.html", error="Registration is not available yet.")
+
+    return render_template("register.html")
+
 @app.route("/logout")
 def logout():
     session.clear()

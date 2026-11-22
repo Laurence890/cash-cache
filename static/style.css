@@ -885,3 +885,45 @@
             flex-wrap: wrap;
         }
     }
+
+    .register-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.register-brand svg {
+    width: 36px;
+    height: 36px;
+    color: #D4AF67;
+    stroke-width: 1.5;
+}
+
+.register-brand h1 {
+    color: #45217A;
+    margin: 0;
+}
+
+.login-card h2 {
+    color: #30213F;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.register-footer {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.register-footer a {
+    color: #6D46A5;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-footer a:hover {
+    text-decoration: underline;
+}
