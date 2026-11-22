@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session  # type: ignore
 import matplotlib 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
