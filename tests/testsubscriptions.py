@@ -15,7 +15,7 @@ class TestSubscriptions(unittest.TestCase):
         subscriptions_data.clear()
         subscriptions_data.extend(self.original_data)
 
-    def test_valid_subscription(self):
+    def test_valid_subscription(self): # functionality test
         original_count = len(subscriptions_data)
         original_total = sum(item["cost"] for item in subscriptions_data)
 
@@ -31,7 +31,7 @@ class TestSubscriptions(unittest.TestCase):
         self.assertEqual(len(subscriptions_data), original_count + 1)
         self.assertAlmostEqual(new_total, original_total + 15.49)
 
-    def test_negative_cost(self):
+    def test_negative_cost(self): # boundary test
         original_count = len(subscriptions_data)
         original_total = sum(item["cost"] for item in subscriptions_data)
 
@@ -47,7 +47,7 @@ class TestSubscriptions(unittest.TestCase):
         self.assertEqual(len(subscriptions_data), original_count)
         self.assertAlmostEqual(new_total, original_total)
 
-    def test_invalid_cost(self):
+    def test_invalid_cost(self): # error handling test
         original_count = len(subscriptions_data)
 
         response = self.client.post("/subscriptions", data={
