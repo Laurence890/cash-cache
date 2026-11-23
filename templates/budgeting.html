@@ -1,71 +1,108 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>My Budget</h1>
-<p>Plan your spending and keep track of your money.</p>
+<h1>Budget Goals</h1>
+<p>Create custom savings targets and track your monthly and bi-weekly goals.</p>
 
+<!-- Flash Notifications -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash flash-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<!-- Summary Cards -->
 <div class="budget-summary">
     <div class="budget-card">
-        <h2>Total Budgeted</h2>
-        <p>${{ "%.2f"|format(total_limit) }}</p>
+        <h2>Total Target</h2>
+        <p>${{ "%.2f"|format(total_budgeted) }}</p>
     </div>
-
     <div class="budget-card">
-        <h2>Total Spent</h2>
-        <p>${{ "%.2f"|format(total_spent) }}</p>
+        <h2>Total Saved</h2>
+        <p>${{ "%.2f"|format(total_saved) }}</p>
     </div>
-
     <div class="budget-card">
         <h2>Remaining</h2>
-        <p>${{ "%.2f"|format(remaining) }}</p>
+        <p>${{ "%.2f"|format(total_remaining) }}</p>
+    </div>
+    <div class="budget-card">
+        <h2>Active Goals</h2>
+        <p>{{ goal_count }} / 10</p>
     </div>
 </div>
 
+<!-- Creation Form (Disabled if 10 goals reached) -->
 <div class="budget-form-card">
-    <h2>Add a Budget Category</h2>
+    <h2>Create a Budget Goal</h2>
+    {% if goal_count >= 10 %}
+        <p style="color: #c0392b;">You have reached the maximum limit of 10 budget goals.</p>
+    {% else %}
+        <form method="POST" action="{{ url_for('add_budget_goal') }}">
+            <label for="name">Goal Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Emergency Fund" required>
 
-    <form method="POST" action="{{ url_for('budgeting') }}">
-        <label for="category">Category Name</label>
-        <input type="text" id="category" name="category"
-               placeholder="e.g. Shopping" required>
+            <label for="amount">Target Dollar Amount ($)</label>
+            <input type="number" id="amount" name="amount" min="0.01" step="0.01" placeholder="e.g. 1200.00" required>
 
-        <label for="limit">Spending Limit ($)</label>
-        <input type="number" id="limit" name="limit"
-               min="0.01" step="0.01" placeholder="e.g. 100" required>
+            <label for="target_date">Target Time-Frame (End Date)</label>
+            <input type="date" id="target_date" name="target_date" required>
 
-        <button type="submit" class="budget-button">Add Category</button>
-    </form>
+            <button type="submit" class="budget-button">Create Goal</button>
+        </form>
+    {% endif %}
 </div>
 
-<h2>Spending Categories</h2>
-
+<!-- Goal Cards -->
+<h2>Your Active Goals</h2>
 <div class="budget-categories">
-    {% for budget in budgets %}
+    {% for goal in goals %}
     <div class="budget-category-card">
-        <h3>{{ budget.category }}</h3>
-
-        <p>Spent: ${{ "%.2f"|format(budget.spent) }}</p>
-        <p>Budget: ${{ "%.2f"|format(budget.limit) }}</p>
-        <p>Remaining: ${{ "%.2f"|format(budget.limit - budget.spent) }}</p>
-
-        <div class="budget-progress">
-            <div class="budget-progress-fill"
-                 style='width: {{ budget.percentage }}%;'>
-            </div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <h3>{{ goal.name }}</h3>
+            {% if goal.is_reached %}
+                <span style="color: #287a4b; font-weight: bold; font-size: 13px;">✓ Reached</span>
+            {% endif %}
         </div>
 
-        <p>{{ "%.0f"|format(budget.percentage) }}% used</p>
+        <p><strong>Target:</strong> ${{ "%.2f"|format(goal.target_amount) }}</p>
+        <p><strong>Target Date:</strong> {{ goal.target_date.strftime('%b %d, %Y') }}</p>
 
-        <form method="POST"
-              action="{{ url_for('remove_budget', budget_index=loop.index0) }}"
-              onsubmit="return confirm('Are you sure you want to remove this category?');">
-            <button type="submit" class="remove-budget-button">
-                Remove Category
-            </button>
+        <!-- Monthly and Bi-Weekly Breakdown -->
+        <div style="background: #EEE7F7; padding: 10px; border-radius: 8px; margin: 10px 0;">
+            <p style="margin: 3px 0; font-size: 14px;">
+                <strong>Monthly:</strong> ${{ "%.2f"|format(goal.monthly_savings_goal) }}/mo
+            </p>
+            <p style="margin: 3px 0; font-size: 14px;">
+                <strong>Bi-Weekly:</strong> ${{ "%.2f"|format(goal.biweekly_savings_goal) }}/2-wks
+            </p>
+        </div>
+
+        <!-- Progress Tracking -->
+        <p>Saved: ${{ "%.2f"|format(goal.current_amount) }} of ${{ "%.2f"|format(goal.target_amount) }}</p>
+        <div class="budget-progress">
+            <div class="budget-progress-fill" style="width: {{ goal.percentage }}%;"></div>
+        </div>
+        <p>{{ "%.0f"|format(goal.percentage) }}% complete</p>
+
+        <!-- Log Progress Form -->
+        <form method="POST" action="{{ url_for('update_goal_progress', goal_id=goal.id) }}" style="margin-top: 10px;">
+            <label style="font-size: 12px;">Update Saved ($):</label>
+            <div style="display: flex; gap: 5px;">
+                <input type="number" name="current_amount" min="0" step="0.01" value="{{ goal.current_amount }}" style="width: 100px; padding: 6px;">
+                <button type="submit" class="budget-button" style="margin-top: 0; padding: 6px 10px;">Update</button>
+            </div>
+        </form>
+
+        <!-- Manual Deletion -->
+        <form method="POST" action="{{ url_for('delete_budget_goal', goal_id=goal.id) }}"
+              onsubmit="return confirm('Are you sure you want to delete this budget goal?');" style="margin-top: 10px;">
+            <button type="submit" class="remove-budget-button">Delete Goal</button>
         </form>
     </div>
     {% else %}
-    <p>No budget categories yet. Add one above to get started.</p>
+    <p>No budget goals created yet. Use the form above to add your first goal!</p>
     {% endfor %}
 </div>
 {% endblock %}
