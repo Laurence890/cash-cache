@@ -49,6 +49,9 @@ subscriptions_data = [
     }
 ]
 
+def get_supabase():
+    return create_client(supabase_url, supabase_key)
+
 @app.before_request
 def require_login():
     protected_pages = ["home", "subscriptions", "budgeting", "reminders", "social"]
@@ -66,11 +69,31 @@ def login():
         username_or_email = request.form.get("username_or_email", "").strip()
         password = request.form.get("password", "")
 
-        if username_or_email in [TEST_USERNAME, TEST_EMAIL] and password == TEST_PASSWORD:
-            session["logged_in"] = True
-            return redirect(url_for("home"))
+        if not username_or_email or not password:
+            error = "Please fill out all fields."
 
-        error = "Invalid username/email or password."
+        else:
+            try:
+                supabase = get_supabase()
+
+                response = supabase.auth.sign_in_with_password({
+                    "email": username_or_email,
+                    "password": password
+                })
+
+                if response.get("user") and response.session:
+                    session.clear()
+                    session["logged_in"] = True
+                    session["username"] = response.username
+                    session["email"] = response.user.email
+
+                    return redirect(url_for("home"))
+
+                error = "Invalid username/email or password."
+
+            except Exception:
+                app.logger.exception("Error during login")
+                error = "An error occurred during login. Please try again."
 
     return render_template("login.html", error=error)   
 
