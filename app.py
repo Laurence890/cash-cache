@@ -70,7 +70,7 @@ def login():
         password = request.form.get("password", "")
 
         if not username_or_email or not password:
-            error = "Please enter fill out all fields."
+            error = "Please fill out all fields."
 
         else:
             try:
@@ -94,7 +94,7 @@ def login():
             except Exception:
                 app.logger.exception("Error during login")
                 error = "An error occurred during login. Please try again."
-                
+
     return render_template("login.html", error=error)   
 
 
